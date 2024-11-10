@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{f5f2698f-4123-4600-9405-b57764ad172b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	//inputs
+	filterPlaatsen : BOOL := FALSE;				//De gebruiker plaatst een filter
+	waterreservoirVullen : BOOL := FALSE;		//De gebruiker voegt een eenheid water toe, er kunnen meerdere eenheden water toegevoegd worden aan het reservoir
+	scoopieDrBij : BOOL := FALSE;				//De gebruiker voegt een schepje filtermaling toe, er kunnen meerdere schepjes toegevoegd worden
+	apparaatAanzetten : BOOL := FALSE;			//Het apparaat wordt ingeschakeld/gestart
+	ikBenMoe : BOOL := FALSE;					//De staat van zijn van de gebruiker wordt vastgelegd, dit is van belang voor hoe de koffie moet smaken
+	allesLegen : BOOL := FALSE;					//De kan wordt geleegd, het filter eruit, alle variabelen worden gereset
+		
+	//outputs
+	apparaatAan : BOOL := FALSE;				//Staat het apparaat aan of niet
+	filterGeplaatst : BOOL := FALSE;			//Is er een filter in het apparaat geplaatst?
+	aantalSchepjes : INT := 0;
+	storeSchepjes: INT;
+	reservoirLevel : INT := 0;
+	storeReservoir : INT;
+	koffieKlaar : BOOL := FALSE;
+	apparaatLeeg : BOOL := TRUE;
+	koffieError : BOOL := FALSE;
+	waterigeKoffie : BOOL := FALSE;
+	sterkeKoffie : BOOL := FALSE;
+	lekkereKoffie : BOOL := FALSE;
+	state : INT := 1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF apparaatLeeg THEN
+	state := 1;
+	allesLegen := FALSE;
+	apparaatLeeg := FALSE;
+END_IF
+
+CASE state OF
+	1: 
+		IF allesLegen OR apparaatAanzetten THEN
+			koffieError := TRUE;
+		ELSE
+			koffieError := FALSE;
+		END_IF
+		
+		IF filterPlaatsen AND NOT filterGeplaatst THEN
+			filterGeplaatst := TRUE;
+		END_IF
+		
+		IF scoopieDrBij THEN
+			aantalSchepjes := storeSchepjes + 1;
+		ELSE
+			storeSchepjes := aantalschepjes;
+		END_IF
+		
+		IF waterreservoirVullen THEN
+			reservoirLevel := storeReservoir + 1;
+		ELSE
+			storeReservoir := reservoirLevel;
+		END_IF
+		
+		IF apparaatAanzetten THEN
+			state := 2;
+		END_IF
+		
+	2:
+		IF aantalSchepjes = 2*reservoirLevel THEN
+			lekkereKoffie := TRUE;
+		ELSIF aantalSchepjes < 2*reservoirLevel THEN
+			waterigeKoffie := TRUE;
+		ELSIF aantalSchepjes > 2*reservoirLevel THEN
+			sterkeKoffie := TRUE;
+		
+			IF ikBenMoe THEN
+				lekkereKoffie := TRUE;
+			END_IF
+			
+		END_IF
+		apparaatLeeg := FALSE;
+		koffieKlaar := TRUE;
+		
+		IF allesLegen THEN
+				
+			//inputs
+			filterPlaatsen := FALSE;
+			waterreservoirVullen := FALSE;
+			scoopieDrBij := FALSE;
+			apparaatAanzetten := FALSE;
+			ikBenMoe := FALSE;
+			allesLegen := FALSE;
+				
+			//outputs
+			apparaatAan := FALSE;
+			filterGeplaatst := FALSE;
+			aantalSchepjes := 0;
+			reservoirLevel := 0;
+			koffieKlaar := FALSE;
+			apparaatLeeg := TRUE;
+			koffieError := FALSE;
+			waterigeKoffie := FALSE;
+			sterkeKoffie := FALSE;
+			lekkereKoffie := FALSE;
+		END_IF
+		
+END_CASE;
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="31" Count="76" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
