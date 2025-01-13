@@ -34,6 +34,10 @@ END_VAR
 	apparaatLeeg := FALSE;
 END_IF
 
+//IF waterreservoirVullen = TRUE THEN
+//	sterkeKoffie := TRUE;
+//END_IF
+
 CASE state OF
 	1: 				//Apparaat staat uit, de gebruiker kan het apparaat vullen
 		IF allesLegen OR apparaatAanzetten THEN
@@ -109,7 +113,9 @@ END_CASE;
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="31" Count="35" />
+      <LineId Id="31" Count="4" />
+      <LineId Id="159" Count="3" />
+      <LineId Id="36" Count="30" />
       <LineId Id="133" Count="0" />
       <LineId Id="67" Count="40" />
       <LineId Id="2" Count="0" />
