@@ -3,107 +3,87 @@
   <POU Name="MAIN" Id="{f5f2698f-4123-4600-9405-b57764ad172b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	//inputs
-	filterPlaatsen : BOOL := FALSE;				//De gebruiker plaatst een filter
-	waterreservoirVullen : BOOL := FALSE;		//De gebruiker voegt een eenheid water toe, er kunnen meerdere eenheden water toegevoegd worden aan het reservoir
-	scoopieDrBij : BOOL := FALSE;				//De gebruiker voegt een schepje filtermaling toe, er kunnen meerdere schepjes toegevoegd worden
-	apparaatAanzetten : BOOL := FALSE;			//Het apparaat wordt ingeschakeld/gestart
-	ikBenMoe : BOOL := FALSE;					//De staat van zijn van de gebruiker wordt vastgelegd, dit is van belang voor hoe de koffie moet smaken
-	allesLegen : BOOL := FALSE;					//De kan wordt geleegd, het filter eruit, alle variabelen worden gereset
-		
-	//outputs
-	apparaatAan : BOOL := FALSE;				//Staat het apparaat aan of niet
-	filterGeplaatst : BOOL := FALSE;			//Is er een filter in het apparaat geplaatst?
-	aantalSchepjes : INT := 0;					//Houdt bij hoeveel schepjes filtermaling de gebruiker toevoegt
-	storeSchepjes: INT;							//Nodig voor het slechts toevoegen van 1 schepje
-	reservoirLevel : INT := 0;					//Houdt bij hoeveel water de gebruiker toevoegt
-	storeReservoir : INT;						//Nodig voor het slechts toevoegen van 1 level
-	koffieKlaar : BOOL := FALSE;				//Koffie is klaar!
-	apparaatLeeg : BOOL := TRUE;				//Alle variabelen zijn gereset
-	koffieError : BOOL := FALSE;				//Er is een probleem opgetreden
-	waterigeKoffie : BOOL := FALSE;				//De koffie is waterig van smaak
-	sterkeKoffie : BOOL := FALSE;				//De koffie is sterk van smaak
-	lekkereKoffie : BOOL := FALSE;				//De koffie is perfect gelukt!
-	state : INT := 1;							//Houdt de staat van het apparaat bij, 1 = uit en 2 = aan
+							//Houdt de staat van het apparaat bij, 1 = uit en 2 = aan
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF apparaatLeeg THEN
-	state := 1;
-	allesLegen := FALSE;
-	apparaatLeeg := FALSE;
+      <ST><![CDATA[
+IF GVL.apparaatLeeg THEN
+	GVL.state := 1;
+	GVL.allesLegen := FALSE;
+	GVL.apparaatLeeg := FALSE;
 END_IF
 
-//IF waterreservoirVullen = TRUE THEN
-//	sterkeKoffie := TRUE;
+//IF GVL.waterreservoirVullen = TRUE THEN
+//	GVL.sterkeKoffie := TRUE;
 //END_IF
 
 CASE state OF
 	1: 				//Apparaat staat uit, de gebruiker kan het apparaat vullen
-		IF allesLegen OR apparaatAanzetten THEN
-			koffieError := TRUE;
+		IF GVL.allesLegen OR GVL.apparaatAanzetten THEN
+			GVL.koffieError := TRUE;
 		ELSE
-			koffieError := FALSE;
+			GVL.koffieError := FALSE;
 		END_IF
 		
-		IF filterPlaatsen AND NOT filterGeplaatst THEN
-			filterGeplaatst := TRUE;
+		IF GVL.filterPlaatsen AND NOT GVL.filterGeplaatst THEN
+			GVL.filterGeplaatst := TRUE;
 		END_IF
 		
-		IF scoopieDrBij THEN
-			aantalSchepjes := storeSchepjes + 1;
+		IF GVL.scoopieDrBij THEN
+			GVL.aantalSchepjes := GVL.storeSchepjes + 1;
 		ELSE
-			storeSchepjes := aantalschepjes;
+			GVL.storeSchepjes := GVL.aantalschepjes;
 		END_IF
 		
-		IF waterreservoirVullen THEN
-			reservoirLevel := storeReservoir + 1;
+		IF GVL.waterreservoirVullen THEN
+			GVL.reservoirLevel := GVL.storeReservoir + 1;
 		ELSE
-			storeReservoir := reservoirLevel;
+			GVL.storeReservoir := GVL.reservoirLevel;
 		END_IF
 		
-		IF apparaatAanzetten THEN
-			state := 2;
+		IF GVL.apparaatAanzetten THEN
+			GVL.state := 2;
 		END_IF
 		
 	2: 				//Apparaat staat aan, koffie is gezet op basis van de gebruikersinputs
 		
-		IF aantalSchepjes = 2*reservoirLevel THEN
-			lekkereKoffie := TRUE;
-		ELSIF aantalSchepjes < 2*reservoirLevel THEN
-			waterigeKoffie := TRUE;
-		ELSIF aantalSchepjes > 2*reservoirLevel THEN
-			sterkeKoffie := TRUE;
+		IF GVL.aantalSchepjes = 2*GVL.reservoirLevel THEN
+			GVL.lekkereKoffie := TRUE;
+		ELSIF GVL.aantalSchepjes < 2*GVL.reservoirLevel THEN
+			GVL.waterigeKoffie := TRUE;
+		ELSIF GVL.aantalSchepjes > 2*GVL.reservoirLevel THEN
+			GVL.sterkeKoffie := TRUE;
 		
-			IF ikBenMoe THEN
-				lekkereKoffie := TRUE;
+			IF GVL.ikBenMoe THEN
+				GVL.lekkereKoffie := TRUE;
 			END_IF
 			
 		END_IF
-		apparaatLeeg := FALSE;
-		koffieKlaar := TRUE;
+		GVL.apparaatLeeg := FALSE;
+		GVL.koffieKlaar := TRUE;
 		
-		IF allesLegen THEN
+		IF GVL.allesLegen THEN
 				
 			//inputs
-			filterPlaatsen := FALSE;
-			waterreservoirVullen := FALSE;
-			scoopieDrBij := FALSE;
-			apparaatAanzetten := FALSE;
-			ikBenMoe := FALSE;
-			allesLegen := FALSE;
+			GVL.filterPlaatsen := FALSE;
+			GVL.waterreservoirVullen := FALSE;
+			GVL.scoopieDrBij := FALSE;
+			GVL.apparaatAanzetten := FALSE;
+			GVL.ikBenMoe := FALSE;
+			GVL.allesLegen := FALSE;
 				
 			//outputs
-			apparaatAan := FALSE;
-			filterGeplaatst := FALSE;
-			aantalSchepjes := 0;
-			reservoirLevel := 0;
-			koffieKlaar := FALSE;
-			apparaatLeeg := TRUE;
-			koffieError := FALSE;
-			waterigeKoffie := FALSE;
-			sterkeKoffie := FALSE;
-			lekkereKoffie := FALSE;
+			GVL.apparaatAan := FALSE;
+			GVL.filterGeplaatst := FALSE;
+			GVL.aantalSchepjes := 0;
+			GVL.reservoirLevel := 0;
+			GVL.koffieKlaar := FALSE;
+			GVL.apparaatLeeg := TRUE;
+			GVL.koffieError := FALSE;
+			GVL.waterigeKoffie := FALSE;
+			GVL.sterkeKoffie := FALSE;
+			GVL.lekkereKoffie := FALSE;
 		END_IF
 		
 END_CASE;
@@ -113,6 +93,7 @@ END_CASE;
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="189" Count="0" />
       <LineId Id="31" Count="4" />
       <LineId Id="159" Count="3" />
       <LineId Id="36" Count="30" />

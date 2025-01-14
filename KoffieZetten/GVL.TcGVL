@@ -1,8 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL" Id="{679b8596-648c-499e-9bd3-6b7cd7f5352e}">
-    <Declaration><![CDATA[{attribute 'qualified_only'}
-VAR_GLOBAL
+    <Declaration><![CDATA[VAR_GLOBAL
+	//inputs
+	filterPlaatsen : BOOL := FALSE;				//De gebruiker plaatst een filter
+	waterreservoirVullen : BOOL := FALSE;		//De gebruiker voegt een eenheid water toe, er kunnen meerdere eenheden water toegevoegd worden aan het reservoir
+	scoopieDrBij : BOOL := FALSE;				//De gebruiker voegt een schepje filtermaling toe, er kunnen meerdere schepjes toegevoegd worden
+	apparaatAanzetten : BOOL := FALSE;			//Het apparaat wordt ingeschakeld/gestart
+	ikBenMoe : BOOL := FALSE;					//De staat van zijn van de gebruiker wordt vastgelegd, dit is van belang voor hoe de koffie moet smaken
+	allesLegen : BOOL := FALSE;					//De kan wordt geleegd, het filter eruit, alle variabelen worden gereset
+		
+	//outputs
+	apparaatAan : BOOL := FALSE;				//Staat het apparaat aan of niet
+	filterGeplaatst : BOOL := FALSE;			//Is er een filter in het apparaat geplaatst?
+	aantalSchepjes : INT := 0;					//Houdt bij hoeveel schepjes filtermaling de gebruiker toevoegt
+	storeSchepjes: INT;							//Nodig voor het slechts toevoegen van 1 schepje
+	reservoirLevel : INT := 0;					//Houdt bij hoeveel water de gebruiker toevoegt
+	storeReservoir : INT;						//Nodig voor het slechts toevoegen van 1 level
+	koffieKlaar : BOOL := FALSE;				//Koffie is klaar!
+	apparaatLeeg : BOOL := TRUE;				//Alle variabelen zijn gereset
+	koffieError : BOOL := FALSE;				//Er is een probleem opgetreden
+	waterigeKoffie : BOOL := FALSE;				//De koffie is waterig van smaak
+	sterkeKoffie : BOOL := FALSE;				//De koffie is sterk van smaak
+	lekkereKoffie : BOOL := FALSE;				//De koffie is perfect gelukt!
+	state : INT := 1;	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
