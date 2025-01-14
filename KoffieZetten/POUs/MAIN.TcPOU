@@ -16,10 +16,8 @@ END_IF
 
 CASE state OF
 	1: 				//Apparaat staat uit, de gebruiker kan het apparaat vullen
-		IF GVL.allesLegen OR GVL.apparaatAanzetten THEN
+		IF GVL.allesLegen OR (GVL.filterGeplaatst = FALSE AND GVL.aantalSchepjes > 0) THEN
 			GVL.koffieError := TRUE;
-		ELSE
-			GVL.koffieError := FALSE;
 		END_IF
 		
 		IF GVL.filterPlaatsen AND NOT GVL.filterGeplaatst THEN
@@ -28,14 +26,24 @@ CASE state OF
 		
 		IF GVL.scoopieDrBij THEN
 			GVL.aantalSchepjes := GVL.storeSchepjes + 1;
+			IF GVL.aantalSchepjes > 12 THEN
+				GVL.koffieError := TRUE;
+			END_IF
 		ELSE
 			GVL.storeSchepjes := GVL.aantalschepjes;
 		END_IF
 		
 		IF GVL.waterreservoirVullen THEN
 			GVL.reservoirLevel := GVL.storeReservoir + 1;
+			IF GVL.reservoirLevel > 6 THEN
+				GVL.koffieError := TRUE;
+			END_IF
 		ELSE
 			GVL.storeReservoir := GVL.reservoirLevel;
+		END_IF
+		
+		IF GVL.allesLegen THEN
+			resetVars();
 		END_IF
 		
 		IF GVL.apparaatAanzetten THEN
@@ -71,7 +79,16 @@ END_CASE;
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="189" Count="0" />
-      <LineId Id="31" Count="35" />
+      <LineId Id="31" Count="9" />
+      <LineId Id="43" Count="7" />
+      <LineId Id="203" Count="1" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="51" Count="5" />
+      <LineId Id="199" Count="2" />
+      <LineId Id="57" Count="3" />
+      <LineId Id="197" Count="1" />
+      <LineId Id="195" Count="1" />
+      <LineId Id="61" Count="5" />
       <LineId Id="133" Count="0" />
       <LineId Id="67" Count="15" />
       <LineId Id="102" Count="5" />
