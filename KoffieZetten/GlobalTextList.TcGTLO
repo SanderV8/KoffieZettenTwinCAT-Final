@@ -16,6 +16,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"114"</v>
+              <v n="TextDefault">"Apparaat feedback"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"914"</v>
               <v n="TextDefault">"apparaatAan"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -31,6 +36,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"515"</v>
+              <v n="TextDefault">"apparaatStarten"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"154"</v>
               <v n="TextDefault">"filterGeplaatst"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -38,6 +48,11 @@
             <o>
               <v n="TextID">"672"</v>
               <v n="TextDefault">"filterPlaatsen"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"881"</v>
+              <v n="TextDefault">"Gebruikersinputs"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -73,6 +88,11 @@
             <o>
               <v n="TextID">"219"</v>
               <v n="TextDefault">"sterkeKoffie"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"564"</v>
+              <v n="TextDefault">"User inputs"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
