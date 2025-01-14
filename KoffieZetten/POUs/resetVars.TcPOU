@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="resetVars" Id="{52921f20-f083-425f-80d1-3b4a69301866}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM resetVars
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//inputs
+			GVL.filterPlaatsen := FALSE;
+			GVL.waterreservoirVullen := FALSE;
+			GVL.scoopieDrBij := FALSE;
+			GVL.apparaatAanzetten := FALSE;
+			GVL.ikBenMoe := FALSE;
+			GVL.allesLegen := FALSE;
+				
+			//outputs
+			GVL.apparaatAan := FALSE;
+			GVL.filterGeplaatst := FALSE;
+			GVL.aantalSchepjes := 0;
+			GVL.reservoirLevel := 0;
+			GVL.koffieKlaar := FALSE;
+			GVL.apparaatLeeg := TRUE;
+			GVL.koffieError := FALSE;
+			GVL.waterigeKoffie := FALSE;
+			GVL.sterkeKoffie := FALSE;
+			GVL.lekkereKoffie := FALSE;]]></ST>
+    </Implementation>
+    <LineIds Name="resetVars">
+      <LineId Id="6" Count="17" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

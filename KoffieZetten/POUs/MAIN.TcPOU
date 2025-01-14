@@ -64,26 +64,7 @@ CASE state OF
 		GVL.koffieKlaar := TRUE;
 		
 		IF GVL.allesLegen THEN
-				
-			//inputs
-			GVL.filterPlaatsen := FALSE;
-			GVL.waterreservoirVullen := FALSE;
-			GVL.scoopieDrBij := FALSE;
-			GVL.apparaatAanzetten := FALSE;
-			GVL.ikBenMoe := FALSE;
-			GVL.allesLegen := FALSE;
-				
-			//outputs
-			GVL.apparaatAan := FALSE;
-			GVL.filterGeplaatst := FALSE;
-			GVL.aantalSchepjes := 0;
-			GVL.reservoirLevel := 0;
-			GVL.koffieKlaar := FALSE;
-			GVL.apparaatLeeg := TRUE;
-			GVL.koffieError := FALSE;
-			GVL.waterigeKoffie := FALSE;
-			GVL.sterkeKoffie := FALSE;
-			GVL.lekkereKoffie := FALSE;
+			resetVars();
 		END_IF
 		
 END_CASE;
@@ -98,7 +79,8 @@ END_CASE;
       <LineId Id="159" Count="3" />
       <LineId Id="36" Count="30" />
       <LineId Id="133" Count="0" />
-      <LineId Id="67" Count="40" />
+      <LineId Id="67" Count="15" />
+      <LineId Id="102" Count="5" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
