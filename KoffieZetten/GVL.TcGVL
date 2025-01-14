@@ -5,7 +5,7 @@
 	//inputs
 	filterPlaatsen : BOOL := FALSE;				//De gebruiker plaatst een filter
 	waterreservoirVullen : BOOL := FALSE;		//De gebruiker voegt een eenheid water toe, er kunnen meerdere eenheden water toegevoegd worden aan het reservoir
-	scoopieDrBij : BOOL := FALSE;				//De gebruiker voegt een schepje filtermaling toe, er kunnen meerdere schepjes toegevoegd worden
+	scoopieDrBij : BOOL := FALSE;				//De gebruiker voegt een schepje filtermaling toe, er kunnen meerdere schepjes toegevoegd worden (variabele is vernoemd naar de bekende uitspraak van Joel Beukers)
 	apparaatAanzetten : BOOL := FALSE;			//Het apparaat wordt ingeschakeld/gestart
 	ikBenMoe : BOOL := FALSE;					//De staat van zijn van de gebruiker wordt vastgelegd, dit is van belang voor hoe de koffie moet smaken
 	allesLegen : BOOL := FALSE;					//De kan wordt geleegd, het filter eruit, alle variabelen worden gereset
