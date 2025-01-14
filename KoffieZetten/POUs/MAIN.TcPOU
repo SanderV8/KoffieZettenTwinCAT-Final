@@ -3,7 +3,7 @@
   <POU Name="MAIN" Id="{f5f2698f-4123-4600-9405-b57764ad172b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-							//Houdt de staat van het apparaat bij, 1 = uit en 2 = aan
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -13,10 +13,6 @@ IF GVL.apparaatLeeg THEN
 	GVL.allesLegen := FALSE;
 	GVL.apparaatLeeg := FALSE;
 END_IF
-
-//IF GVL.waterreservoirVullen = TRUE THEN
-//	GVL.sterkeKoffie := TRUE;
-//END_IF
 
 CASE state OF
 	1: 				//Apparaat staat uit, de gebruiker kan het apparaat vullen
@@ -46,7 +42,7 @@ CASE state OF
 			GVL.state := 2;
 		END_IF
 		
-	2: 				//Apparaat staat aan, koffie is gezet op basis van de gebruikersinputs
+	2: 				//Apparaat staat aan, koffie wordt gezet op basis van de gebruikersinputs
 		
 		IF GVL.aantalSchepjes = 2*GVL.reservoirLevel THEN
 			GVL.lekkereKoffie := TRUE;
@@ -75,9 +71,7 @@ END_CASE;
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="189" Count="0" />
-      <LineId Id="31" Count="4" />
-      <LineId Id="159" Count="3" />
-      <LineId Id="36" Count="30" />
+      <LineId Id="31" Count="35" />
       <LineId Id="133" Count="0" />
       <LineId Id="67" Count="15" />
       <LineId Id="102" Count="5" />

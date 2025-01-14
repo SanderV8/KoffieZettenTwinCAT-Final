@@ -23,7 +23,7 @@
 	waterigeKoffie : BOOL := FALSE;				//De koffie is waterig van smaak
 	sterkeKoffie : BOOL := FALSE;				//De koffie is sterk van smaak
 	lekkereKoffie : BOOL := FALSE;				//De koffie is perfect gelukt!
-	state : INT := 1;	
+	state : INT := 1;							//Houdt de staat van het apparaat bij, 1 = uit en 2 = aan
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

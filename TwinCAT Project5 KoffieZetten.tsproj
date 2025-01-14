@@ -10,15 +10,23 @@
 		</System>
 		<Plc>
 			<Project GUID="{F385A4D6-7666-45B2-8FD0-4DA7B4590364}" Name="KoffieZetten" PrjFilePath="KoffieZetten\KoffieZetten.plcproj" TmcFilePath="KoffieZetten\KoffieZetten.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="KoffieZetten\KoffieZetten.tmc" TmcHash="{8E3153C3-1434-EC7A-996C-DE14AB0D9948}">
 					<Name>KoffieZetten Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
 						<Context>
-							<Id>1</Id>
-							<Name>Default</Name>
+							<Id NeedCalleeCall="true">0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
 						</Context>
 					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
 				</Instance>
 			</Project>
 		</Plc>
